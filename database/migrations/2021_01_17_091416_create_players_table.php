@@ -15,6 +15,13 @@ class CreatePlayersTable extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email')->unique();
+            $table->string('nickname')->unique();
+            $table->string('password');
+            $table->date('date_joined');
+            $table->date('last_login');
             $table->timestamps();
         });
     }
