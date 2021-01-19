@@ -19,7 +19,7 @@ class CreateGamePlaysTable extends Migration
             $table->foreign('initiator_id')->references('id')->on('players')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->unsignedBigInteger('game_version_id')->index();
             $table->foreign('game_version_id')->references('id')->on('game_versions')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->date('time_played');
+            $table->dateTime('time_played');
             $table->timestamps();
         });
     }

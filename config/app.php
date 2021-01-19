@@ -228,5 +228,40 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
-
+    'games' => [
+        [
+            'name' => 'Call of Duty',
+            'date_added' => '2010-01-01 00:00:00'
+        ],
+        [
+            'name' => 'Mortal Kombat',
+            'date_added' => '2010-01-01 00:00:00'
+        ],
+        [
+            'name' => 'FIFA',
+            'date_added' => '2010-01-01 00:00:00'
+        ], [
+            'name' => 'Just Cause',
+            'date_added' => '2010-01-01 00:00:00'
+        ], [
+            'name' => 'Apex Legend',
+            'date_added' => '2010-01-01 00:00:00'
+        ]
+    ],
+    'game_versions' => [
+        ['name' => '2010'],
+        ['name' => '2011'],
+        ['name' => '2012'],
+        ['name' => '2013'],
+        ['name' => '2014'],
+        ['name' => '2015'],
+        ['name' => '2016'],
+        ['name' => '2017'],
+        ['name' => '2018'],
+        ['name' => '2019'],
+        ['name' => '2020']
+    ],
+    'test_players_count' => 10000,
+    'min_plays_per_day' => 1500,
+    'total_days_of_gameplay' => 3835
 ];
