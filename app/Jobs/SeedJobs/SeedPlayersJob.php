@@ -45,7 +45,8 @@ class SeedPlayersJob implements ShouldQueue
         $this->seedPlayers();
         $this->seedMorePlayersIfRequired();
         $this->seedGamePlayIfPlayersAreEnough();
-        $this->startSeedingGamePlayIfPlayersAreEnough();
+        //TODO uncomemnt this after docker test
+        // $this->startSeedingGamePlayIfPlayersAreEnough();
     }
 
     /**

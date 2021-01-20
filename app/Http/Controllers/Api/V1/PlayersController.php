@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Collections\ApiPaginatedCollection;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PlayerResource;
+use App\Http\Resources\PlayerWithGamesResource;
 use App\Http\Resources\Top100PlayerResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -52,7 +52,7 @@ class PlayersController extends Controller
     {
         $data = ApiPaginatedCollection::make(
             $this->player_repository->listPlayers($request),
-            PlayerResource::class
+            PlayerWithGamesResource::class
         );
         return Responser::sendPaginated(200, $data, 'Listing all players with pagination');
     }

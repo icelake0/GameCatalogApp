@@ -35,6 +35,16 @@ class GamePlayRepository
     }
 
     /**
+     * make a new instance of GamePlayRepository
+     * 
+     * @return GamePlayRepository
+     */
+    public static function make(): GamePlayRepository
+    {
+        return new static(new GamePlay);
+    }
+
+    /**
      * Setup new builder on the repository instance
      * 
      * @return Illuminate\Database\Eloquent\Builder
@@ -52,7 +62,7 @@ class GamePlayRepository
      */
     public function listGamePlays(Request $request): LengthAwarePaginator
     {
-        return $this->listGamePlaysBuilder($request)->paginate();
+        return $this->listGamePlaysBuilder($request)->latest()->paginate();
     }
 
     /**
@@ -69,7 +79,8 @@ class GamePlayRepository
             $request->date_played_range[0] ?? null,
             $request->date_played_range[1] ?? null
         );
-        $this->builder->with([])->latest(); //TODO make this in a function
+        $this->fiterByInitiator($request->initiator);
+        $this->filterByGame($request->game);
         return $this->builder;
     }
 
@@ -99,7 +110,35 @@ class GamePlayRepository
     protected function fiterByDatePlayed(string $date_played = null)
     {
         if ($date_played) {
-            $this->builder->whereRaw("DATE_FORMAT(time_played, '%Y-%c-%d') = '{$date_played}'");
+            $this->builder->whereRaw("DATE_FORMAT(time_played, '%Y-%m-%d') = '{$date_played}'");
+        }
+    }
+
+    /**
+     * Add initiator filter to query 
+     * 
+     * @param int|null $initiator_id
+     * @return void
+     */
+    protected function fiterByInitiator(int $initiator_id = null)
+    {
+        if ($initiator_id) {
+            $this->builder->where('initiator_id', $initiator_id);
+        }
+    }
+
+    /**
+     * Add game filter to query 
+     * 
+     * @param int|null $game_id
+     * @return void
+     */
+    protected function filterByGame(int $game_id = null)
+    {
+        if ($game_id) {
+            $this->builder->whereHas('gameVersion', function ($q) use ($game_id) {
+                $q->where('game_id', $game_id);
+            });
         }
     }
 }

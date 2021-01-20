@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\GamePlay;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PlayerResource extends JsonResource
@@ -22,7 +21,6 @@ class PlayerResource extends JsonResource
             "nickname" => $this->nickname,
             "date_joined" => $this->date_joined,
             "last_login" => $this->last_login,
-            // "game_play" => GamePlay::paginate()->toArray()['data'],
         ];
     }
 }

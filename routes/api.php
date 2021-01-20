@@ -23,4 +23,3 @@ Route::group(['prefix' => '/v1', 'namespace' => 'App\Http\Controllers\Api\V1'], 
     Route::get('/game-plays', ['uses' => 'GamePlaysController@index', 'as' => 'api-v1-game-plays-index']);
     Route::get('/players/top-100/{month}', ['uses' => 'PlayersController@top100', 'as' => 'api-v1-players-top-100']);
 });
-

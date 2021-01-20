@@ -69,7 +69,7 @@ class GamePlayPlayerRepository
     {
         $request->merge(['month_filter' => $month]);
         return $this->listGamePlayPlayersBuilder($request)
-            ->select('player_id', \DB::raw('sum(score) as score'))
+            ->select('player_id', \DB::raw('sum(score) as score'), \DB::raw("'{$month}' as month"))
             ->with('player')
             ->groupBy('player_id')
             ->orderBy('score', 'desc')

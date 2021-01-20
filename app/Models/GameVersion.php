@@ -28,4 +28,15 @@ class GameVersion extends Model
     {
         return $this->belongsTo(Version::class);
     }
+
+
+    /**
+     * Game version has many players relation
+     * 
+     * @return mixed
+     */
+    public function players()
+    {
+        return $this->belongsToMany(Player::class, 'player_game_versions');
+    }
 }

@@ -20,4 +20,14 @@ class Game extends Model
     {
         return $this->belongsToMany(Version::class, 'game_versions')->withTimestamps();
     }
+
+    /**
+     * Game has many Game versions relation
+     * 
+     * @return mixed
+     */
+    public function gameVersions()
+    {
+        return $this->hasMany(GameVersion::class);
+    }
 }
