@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::group(['prefix' => '/v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function () {
+    Route::get('/games', ['uses' => 'GamesController@index', 'as' => 'api-v1-games-index']);
+    Route::get('/players', ['uses' => 'PlayersController@index', 'as' => 'api-v1-players-index']);
+    Route::get('/game-plays', ['uses' => 'GamePlaysController@index', 'as' => 'api-v1-game-plays-index']);
+    Route::get('/players/top-100/{month}', ['uses' => 'PlayersController@top100', 'as' => 'api-v1-players-top-100']);
+});

@@ -28,4 +28,16 @@ class Player extends Model
     {
         return $this->hasMany(GamePlay::class, 'initiator_id');
     }
+
+    /**
+     * Player has many games relation
+     * 
+     * @return mixed
+     */
+    public function games()
+    {
+        return Game::whereHas('gameVersions.players', function ($q) {
+            $q->where('player_game_versions.player_id', $this->id);
+        })->get();
+    }
 }

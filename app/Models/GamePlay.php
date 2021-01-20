@@ -29,6 +29,16 @@ class GamePlay extends Model
     public function players()
     {
         return $this->belongsToMany(Player::class, 'game_play_players')
-        ->withTimestamps()->withPivot(['score']);
+            ->withTimestamps()->withPivot(['score']);
+    }
+
+    /**
+     * Game play belong to a game version relation
+     * 
+     * @return mixed
+     */
+    public function gameVersion()
+    {
+        return $this->belongsTo(GameVersion::class, 'game_version_id');
     }
 }

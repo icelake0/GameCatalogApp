@@ -94,9 +94,8 @@ class SeedGamePlayForDayJob implements ShouldQueue
             })->whereDoesnthave('gamePlays', function ($q) {
                 $current_day = $this->current_day->format('Y-m-d');
                 $q->where('game_version_id', $this->game_version->id)
-                    ->whereRaw("DATE_FORMAT(time_played, '%y-%m-%d') = '{$current_day}'");
-            })
-            ->first();
+                    ->whereRaw("DATE_FORMAT(time_played, '%Y-%m-%d') = '{$current_day}'");
+            })->first();
     }
 
     /**
