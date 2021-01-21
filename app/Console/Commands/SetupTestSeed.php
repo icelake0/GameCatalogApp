@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\SeedJobs\SeedGamePlayJob;
-use App\Jobs\SeedJobs\SeedPlayersJob;
+use App\Jobs\SeedJobs\SeedGamePlayJobQueue;
+use App\Jobs\SeedJobs\StartAttemptingGamePlaySeed;
 use Illuminate\Console\Command;
 use App\Models\Game;
 use App\Models\Version;
@@ -15,7 +15,7 @@ class SetupTestSeed extends Command
      *
      * @var string
      */
-    protected $signature = 'setup:test-seed';
+    protected $signature = 'setup-script:seed-game-plays';
 
     /**
      * A collection of versions ids
@@ -52,7 +52,8 @@ class SetupTestSeed extends Command
     {
         $this->seedVersions();
         $this->seedGames();
-        $this->seedPlayersAndGamePlays();
+        $this->startAttemptingGamePlaySeed();
+        $this->seedPlayers();
         return 0;
     }
 
@@ -89,8 +90,19 @@ class SetupTestSeed extends Command
      * 
      * @return void
      */
-    private function seedPlayersAndGamePlays()
+    private function seedPlayers()
     {
-        SeedPlayersJob::dispatch(config('app.test_players_count'));
+        for ($i = 1; $i <= 20; $i++)
+            SeedGamePlayJobQueue::dispatch();
+    }
+
+    /**
+     * Start Attempting GamePlay Seed
+     * 
+     * @return void
+     */
+    public function startAttemptingGamePlaySeed()
+    {
+        StartAttemptingGamePlaySeed::dispatch();
     }
 }

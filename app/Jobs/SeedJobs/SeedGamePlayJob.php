@@ -36,7 +36,8 @@ class SeedGamePlayJob implements ShouldQueue
      */
     public function __construct(Carbon $current_day = null)
     {
-        $this->onQueue('game-play');
+        $this->onQueue('daily-game-play');
+        set_time_limit(0);
         $this->first_day = Carbon::parse('2010-01-01 00:00:00');
         $this->current_day = $current_day ?? $this->first_day;
     }
@@ -59,7 +60,7 @@ class SeedGamePlayJob implements ShouldQueue
      */
     private function seedGamePlayForCurrentDay()
     {
-        $total_game_plays_for_current_day = mt_rand(1500, 1510);
+        $total_game_plays_for_current_day = rand(1500, 1510);
         for ($i = 0; $i < $total_game_plays_for_current_day; $i++) {
             SeedGamePlayForDayJob::dispatch($this->current_day);
         }
@@ -72,7 +73,7 @@ class SeedGamePlayJob implements ShouldQueue
      */
     private function seedForMoreDaysIfCurrentDayIsNotLastday()
     {
-        if ($this->currentDayIsNotLastDay) {
+        if ($this->currentDayIsNotLastDay()) {
             static::dispatch($this->current_day->addDay());
         }
     }
