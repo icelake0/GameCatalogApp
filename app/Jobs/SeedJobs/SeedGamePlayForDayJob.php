@@ -131,7 +131,7 @@ class SeedGamePlayForDayJob implements ShouldQueue
         $this->game_play = GamePlay::create([
             'initiator_id' => $this->game_initiator->id,
             'game_version_id' => $this->game_version->id,
-            'time_played' => $this->current_day->addSeconds(mt_rand(0, 24 * 60 * 60 - 1))
+            'time_played' => $this->current_day->addSeconds(rand(0, 24 * 60 * 60 - 1))
         ]);
     }
 
@@ -147,7 +147,7 @@ class SeedGamePlayForDayJob implements ShouldQueue
                 $this->getRandoGamePlayers()
                     ->pluck('id')->flip()->map(function ($value) {
                         return [
-                            'score' => mt_rand(1, 100000)
+                            'score' => rand(1, 100000)
                         ];
                     })
             );
@@ -165,7 +165,7 @@ class SeedGamePlayForDayJob implements ShouldQueue
                 $q->where('game_versions.id', $this->game_version->id);
             })->where('id', '!=', $this->game_initiator->id)
             ->limit(
-                mt_rand(0, 3)
+                rand(0, 3)
             )->get()
             ->push($this->game_initiator);
     }
