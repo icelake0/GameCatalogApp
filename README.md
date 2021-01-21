@@ -19,7 +19,7 @@ The system should only store one game play record per player per game per day ev
 1) Install and set up doker on your machine 
 [Getting started with docker](https://docs.docker.com/compose/gettingstarted/)
 
-2) Ensure your docker is up an running on your machine
+2) Ensure docker is up and running on your machine
 
 3) Clone the project
     ```bash
@@ -73,10 +73,10 @@ The system should only store one game play record per player per game per day ev
     docker-compose exec app php artisan setup-script:seed-game-plays
     ```
 ## Request running stats in response header
-X-Start-Time : Request start time
-X-End-Time: Request end time
-X-Runtime: Request total time teken in Sec
-X-Memory-Used: Request memory usage in byte
+- X-Start-Time : Request start time
+- X-End-Time: Request end time
+- X-Runtime: Request total time teken in Sec
+- X-Memory-Used: Request memory usage in byte
 
 ## License
 This was built with Laravel framework
