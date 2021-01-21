@@ -27,28 +27,34 @@ The system should only store one game play record per player per game per day ev
     ```
 4) Change directory to the project root
 
-5) Install composer dependencies
+5) Copy .env.example to .env
+
+    ```bash
+    cp .env.example .env
+    ```
+
+6) Install composer dependencies
 
     ```bash
     composer install
     ```
 
-6) Build app image
+7) Build app image
     ```bash
     docker-compose build app
     ```
 
-7) start the app
+8) start the app
     ```bash
     docker-compose up -d
     ```
 
-8) run db migration
+9) run db migration
     ```bash
     docker-compose exec app php artisan migrate
     ```
 
-9) Set up and start workers
+10) Set up and start workers
 
     For this stages use `password` as `password` whenever you are prompted to enter `password`
 
@@ -68,7 +74,7 @@ The system should only store one game play record per player per game per day ev
     ```bash
     docker-compose exec app sudo supervisorctl start
     ```
-10) Run the database seeder script
+11) Run the database seeder script
     ```bash
     docker-compose exec app php artisan setup-script:seed-game-plays
     ```
