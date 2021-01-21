@@ -80,7 +80,6 @@ class SeedGamePlayJob implements ShouldQueue
 
     /**
      * Check that current day is not last day of gaming
-     * //TODO check that this condition works
      * 
      * @return bool
      */
