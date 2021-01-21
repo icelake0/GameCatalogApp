@@ -1,62 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Game Catalog App
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is an API system for a game catalog. The game has players who play it very frequently. The games come in versions so players can own a game in one or more versions of the game.
 
-## About Laravel
+The system should only store one game play record per player per game per day even if the player played the game(s) multiple times in a day provided they played it alone. If the player played with other people, the system records who started the game and those invited to join.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+> Assumption 1: Each of game only allows a maximum of 4 players.
+> Assumption 2: Players can only play together if they have the same game versions.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Testing Apis on Heroku
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Host : https://gbemileke-game-catalog.herokuapp.com
+- Post man collection: https://www.getpostman.com/collections/3ffd2fd24b00d0087a99 
 
-## Learning Laravel
+## Local Setup Guide(Ducker)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1) Install and set up doker on your machine 
+[Getting started with docker](https://docs.docker.com/compose/gettingstarted/)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2) Ensure your docker is up an running on your machine
 
-## Laravel Sponsors
+3) Clone the project
+    ```bash
+    git clone https://github.com/icelake0/GameCatalogApp.git
+    ```
+4) Change directory to the project root
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+5) Install composer dependencies
 
-### Premium Partners
+    ```bash
+    composer install
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+6) Build app image
+    ```bash
+    docker-compose build app
+    ```
 
-## Contributing
+7) start the app
+    ```bash
+    docker-compose up -d
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+8) run db migration
+    ```bash
+    docker-compose exec app php artisan migrate
+    ```
 
-## Code of Conduct
+9) Set up and start workers
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    For this stages use `password` as `password` whenever you are prompted to enter `password`
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    - start supervisor
+    ```bash
+    docker-compose exec app sudo supervisord
+    ```
+    - read the new config
+    ```bash
+    docker-compose exec app sudo supervisorctl reread
+    ```
+    - activate configuration
+    ```bash
+    docker-compose exec app sudo supervisorctl update 
+    ```
+    - start workers
+    ```bash
+    docker-compose exec app sudo supervisorctl start
+    ```
+10) Run the database seeder script
+    ```bash
+    docker-compose exec app php artisan setup-script:seed-game-plays
+    ```
 
 ## License
+This was built with Laravel framework
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
