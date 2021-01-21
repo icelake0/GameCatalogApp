@@ -10,7 +10,9 @@ The system should only store one game play record per player per game per day ev
 ## Testing Apis on Heroku
 
 - Host : https://gbemileke-game-catalog.herokuapp.com
-- Post man collection: https://www.getpostman.com/collections/3ffd2fd24b00d0087a99 
+- Post man collection: https://www.getpostman.com/collections/3ffd2fd24b00d0087a99
+
+    [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3ffd2fd24b00d0087a99)
 
 ## Local Setup Guide(Ducker)
 
@@ -70,6 +72,11 @@ The system should only store one game play record per player per game per day ev
     ```bash
     docker-compose exec app php artisan setup-script:seed-game-plays
     ```
+## Request running stats in response header
+X-Start-Time : Request start time
+X-End-Time: Request end time
+X-Runtime: Request total time teken in Sec
+X-Memory-Used: Request memory usage in byte
 
 ## License
 This was built with Laravel framework
