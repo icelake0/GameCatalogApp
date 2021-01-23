@@ -27,7 +27,7 @@ The system should only store one game play record per player per game per day ev
     ```
 4) Change directory to the project root
     ```bash
-        cd GameCatalogApp
+    cd GameCatalogApp
     ```
 5) Copy .env.example to .env
 
@@ -82,7 +82,11 @@ The system should only store one game play record per player per game per day ev
     ```bash
     docker-compose exec app php artisan setup-script:seed-game-plays
     ```
-12) You can connect to the container DB from outside of the container with tis credncials if you did not nodify it
+12) You can connect to the app locally on this host
+ ```bash
+    localhost:8100
+   ```
+13) You can connect to the container DB from outside of the container with tis credncials if you did not nodify it
 - DB_CONNECTION=mysql
 - DB_HOST=game-catalog-db
 - DB_PORT=3307
